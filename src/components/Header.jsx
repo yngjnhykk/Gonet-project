@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Wrap>
-      <div style={{ width: '60%', fontSize: 40, fontWeight: 'bold' }}>Gonet</div>
+      <div
+        style={{ width: '60%', fontSize: 40, fontWeight: 'bold', cursor: 'pointer' }}
+        onClick={() => navigate('/')}
+      >
+        Gonet
+      </div>
       <div
         style={{
           width: '40%',
@@ -18,8 +26,14 @@ const Header = () => {
         <div className='menu'>menu2</div>
         <div className='menu'>menu3</div>
         <div> |</div>
-        <button className='button'>로그인</button>
-        <button className='button'>회원가입</button>
+        <button
+          className='button'
+          onClick={() => {
+            navigate('/register');
+          }}
+        >
+          등록
+        </button>
       </div>
     </Wrap>
   );
@@ -41,6 +55,7 @@ const Wrap = styled.div`
   }
 
   .button {
+    width: 100px;
     border: 1px solid rgb(234, 234, 236);
     background-color: rgb(255, 255, 255);
     padding: 12px;
