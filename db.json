@@ -4,6 +4,14 @@
     "deptCode": "1000",
     "projects": [
       {
+        "year": "2024",
+        "projectCode": "XXXX-165",
+        "projectName": "ㅁㅁㄴㄴ",
+        "startDate": "2024-04-19",
+        "endDate": "2024-04-19",
+        "key": 1180
+      },
+      {
         "key": 1179,
         "year": 2023,
         "projectCode": "XXXX-164",
@@ -105,6 +113,14 @@
     "deptName": "전략사업본부",
     "deptCode": "2000",
     "projects": [
+      {
+        "year": "2024",
+        "projectCode": "YYYY-62",
+        "projectName": "전략사업본부 test",
+        "startDate": "2024-04-19",
+        "endDate": "2024-05-04",
+        "key": 1180
+      },
       {
         "key": 991,
         "year": 2023,
@@ -320,5 +336,8 @@
         "endDate": "2023-06-11"
       }
     ]
+  },
+  {
+    "recentKey": 1179
   }
 ]
