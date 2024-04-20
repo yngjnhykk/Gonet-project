@@ -6,18 +6,20 @@
       {
         "year": "2024",
         "projectCode": "XXXX-165",
-        "projectName": "ㅁㅁㄴㄴ",
+        "projectName": "testee",
         "startDate": "2024-04-19",
         "endDate": "2024-04-19",
-        "key": 1180
+        "key": 1180,
+        "department": "플랫폼사업관리부"
       },
       {
         "key": 1179,
-        "year": 2023,
+        "year": "2024",
         "projectCode": "XXXX-164",
         "projectName": "스마트 충북실록 아카이브 시스템 구축",
         "startDate": "2023-12-21",
-        "endDate": "2024-09-16"
+        "endDate": "2024-09-16",
+        "department": "플랫폼사업관리부"
       },
       {
         "key": 1163,
@@ -113,14 +115,6 @@
     "deptName": "전략사업본부",
     "deptCode": "2000",
     "projects": [
-      {
-        "year": "2024",
-        "projectCode": "YYYY-62",
-        "projectName": "전략사업본부 test",
-        "startDate": "2024-04-19",
-        "endDate": "2024-05-04",
-        "key": 1180
-      },
       {
         "key": 991,
         "year": 2023,
@@ -338,6 +332,12 @@
     ]
   },
   {
-    "recentKey": 1179
+    "item": {
+      "item": {
+        "recentKey": 1179
+      },
+      "recentKey": 1180
+    },
+    "recentKey": 1181
   }
 ]
