@@ -1,12 +1,11 @@
 import axios from 'axios';
-
-const apiUrl = 'http://localhost:3001';
+axios.defaults.baseURL = 'http://localhost:3001';
 
 // GET - 부서별 프로젝트 전체 조회
 
 export const getDatas = async (department) => {
   try {
-    const response = await axios.get(`${apiUrl}/${department}`);
+    const response = await axios.get(`/${department}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -16,56 +15,37 @@ export const getDatas = async (department) => {
 // POST - Project 생성
 
 export const postProject = async (department, newProject) => {
-  console.log(department, newProject);
   try {
-    // new Code 생성
-    await axios.get(`${apiUrl}/${department}`).then((response) => {
-      const data = response.data;
-      const projects = data.projects;
+    // 부서 정보 가져오기
+    const response = await axios.get(`/${department}`);
+    const data = response.data;
+    const projects = data.projects;
 
-      // 부서 내 가장 최근 프로젝트
-      const recentProject = projects[0].projectCode;
+    // 최신 키 정보 가져오기
+    const recentKeyResponse = await axios.get(`/3`);
+    const recentKey = recentKeyResponse.data.recentKey;
 
-      const newCode =
-        newProject.projectCode +
-        '-' +
-        (parseInt(recentProject.substring(recentProject.indexOf('-') + 1)) + 1).toString();
+    // 새로운 키 생성
+    const newKey = recentKey + 1;
 
-      // new Key 생성
-      axios.get(`${apiUrl}/3`).then((response) => {
-        const recentKey = response.data.recentKey;
+    // 업데이트할 프로젝트 정보 생성
+    const updatedProject = {
+      ...newProject,
+      key: newKey,
+    };
 
-        axios
-          .patch(`${apiUrl}/3`, { recentKey: recentKey + 1 })
-          .then((response) => {
-            const newKey = response.data.recentKey;
+    // 프로젝트 목록에 새로운 프로젝트 추가
+    projects.unshift(updatedProject);
 
-            const updateProject = {
-              ...newProject,
-              key: newKey,
-              projectCode: newCode,
-            };
+    // 데이터 업데이트
+    const newData = await axios.put(`/${department}`, data);
 
-            projects.unshift(updateProject);
-
-            // new Project 생성
-            axios
-              .put(`${apiUrl}/${department}`, data)
-              .then((updatedResponse) => {
-                console.log('새로운 프로젝트가 성공적으로 추가되었습니다.');
-                console.log(updatedResponse);
-              })
-              .catch((err) => {
-                console.error('데이터를 가져오는 중 오류가 발생했습니다.', err);
-              });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      });
-    });
-  } catch (err) {
-    console.error(err);
+    // 성공 메시지 출력
+    console.log('새로운 프로젝트가 성공적으로 추가되었습니다.');
+    console.log(newData);
+  } catch (error) {
+    // 에러 처리
+    console.error('프로젝트를 추가하는 중 오류가 발생했습니다.', error);
   }
 };
 
@@ -73,61 +53,54 @@ export const postProject = async (department, newProject) => {
 
 export const editProject = async (department, newProject) => {
   try {
-    await axios.get(`${apiUrl}/${department}`).then((response) => {
-      const data = response.data;
-      const projects = data.projects;
+    // 부서 정보 가져오기
+    const response = await axios.get(`/${department}`);
+    const data = response.data;
 
-      const newProjects = projects.map((project) => {
-        if (project.key === newProject.key) {
-          return newProject;
-        }
-        return project;
-      });
-
-      const newData = { ...data, projects: newProjects };
-
-      axios
-        .put(`${apiUrl}/${department}`, newData)
-        .then((updatedResponse) => {
-          console.log('프로젝트가 성공적으로 수정되었습니다.');
-          console.log(updatedResponse);
-        })
-        .catch((err) => {
-          console.error('데이터를 수정하는 중 오류가 발생했습니다.', err);
-        });
+    // 프로젝트 수정
+    const newProjects = data.projects.map((project) => {
+      if (project.key === newProject.key) {
+        return newProject;
+      }
+      return project;
     });
-  } catch (err) {
-    console.error(err);
+
+    // 수정된 데이터 생성
+    const newData = { ...data, projects: newProjects };
+
+    // 데이터 업데이트
+    const updatedResponse = await axios.put(`/${department}`, newData);
+
+    // 성공 메시지 출력
+    console.log('프로젝트가 성공적으로 수정되었습니다.');
+    console.log(updatedResponse);
+  } catch (error) {
+    // 에러 처리
+    console.error('데이터를 수정하는 중 오류가 발생했습니다.', error);
   }
 };
-
 // POST - 프로젝트 삭제
 
 export const deleteProject = async (department, projectKey) => {
   try {
-    await axios.get(`${apiUrl}/${department}`).then((response) => {
-      const data = response.data;
-      const projects = data.projects;
+    // 부서 정보 가져오기
+    const response = await axios.get(`/${department}`);
+    const data = response.data;
 
-      const newProjects = projects.filter((project) => {
-        return project.key !== projectKey;
-      });
+    // 프로젝트 필터링
+    const newProjects = data.projects.filter((project) => project.key !== projectKey);
 
-      console.log(newProjects);
+    // 업데이트할 데이터 생성
+    const newData = { ...data, projects: newProjects };
 
-      const newData = { ...data, projects: newProjects };
+    // 데이터 업데이트
+    const updatedResponse = await axios.put(`/${department}`, newData);
 
-      axios
-        .put(`${apiUrl}/${department}`, newData)
-        .then((updatedResponse) => {
-          console.log('프로젝트가 성공적으로 삭제되었습니다.');
-          console.log(updatedResponse);
-        })
-        .catch((err) => {
-          console.error('데이터를 삭제하는 중 오류가 발생했습니다.', err);
-        });
-    });
-  } catch (err) {
-    console.error(err);
+    // 성공 메시지 출력
+    console.log('프로젝트가 성공적으로 삭제되었습니다.');
+    console.log(updatedResponse);
+  } catch (error) {
+    // 에러 처리
+    console.error('데이터를 삭제하는 중 오류가 발생했습니다.', error);
   }
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,10 +22,6 @@ const Header = () => {
           alignItems: 'center',
         }}
       >
-        <div className='menu'>menu1</div>
-        <div className='menu'>menu2</div>
-        <div className='menu'>menu3</div>
-        <div> |</div>
         <button
           className='button'
           onClick={() => {

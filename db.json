@@ -4,24 +4,6 @@
     "deptCode": "1000",
     "projects": [
       {
-        "authorized": true,
-        "year": "2024",
-        "projectCode": "XXXX-163",
-        "projectName": "aasd",
-        "startDate": "2024-04-20",
-        "endDate": "2024-04-20",
-        "key": 1182
-      },
-      {
-        "authorized": true,
-        "year": "2024",
-        "projectCode": "XXXX-162",
-        "projectName": "test",
-        "startDate": "2024-04-20",
-        "endDate": "2024-04-20",
-        "key": 1181
-      },
-      {
         "key": 1163,
         "year": 2023,
         "projectCode": "XXXX-161",
@@ -115,14 +97,6 @@
     "deptName": "전략사업본부",
     "deptCode": "2000",
     "projects": [
-      {
-        "year": "2024",
-        "projectCode": "YYYY-62",
-        "projectName": "",
-        "startDate": "2024-04-20",
-        "endDate": "2024-04-20",
-        "key": 1183
-      },
       {
         "key": 991,
         "year": 2023,
@@ -340,18 +314,6 @@
     ]
   },
   {
-    "item": {
-      "item": {
-        "item": {
-          "item": {
-            "recentKey": 1179
-          },
-          "recentKey": 1180
-        },
-        "recentKey": 1181
-      },
-      "recentKey": 1182
-    },
-    "recentKey": 1183
+    "recentKey": 1179
   }
 ]
